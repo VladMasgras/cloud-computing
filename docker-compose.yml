@@ -1,0 +1,27 @@
+version: '3'
+services:
+  posts:
+    build: 
+      context: ./posts
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+  comments:
+    build: 
+      context: ./comments
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+  frontend:
+    build: 
+      context: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - posts
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
